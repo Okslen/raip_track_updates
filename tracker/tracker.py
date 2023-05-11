@@ -6,7 +6,8 @@ from bs4 import Tag
 
 from tracker.classes import Raip
 from tracker.configs import configure_logging
-from tracker.settings import DELAY, RE_DATE, RE_NUMBER, SEARCH_URL, HTMLTag
+from tracker.settings import (
+    DELAY, DOMAIN, RE_DATE, RE_NUMBER, SEARCH_URL, HTMLTag)
 from tracker.utils import find_tag, make_soup
 
 
@@ -32,7 +33,7 @@ def get_raip(link: str) -> Raip:
         number=re.search(RE_NUMBER, number.text).group(),
         accept_date=re.search(RE_DATE, accept_date.text).group(),
         pub_date=re.search(RE_DATE, pub_date.text).group(),
-        href=href.get('href')
+        href=DOMAIN + href.get('href')
     )
 
 

@@ -1,5 +1,6 @@
 import csv
 import logging
+from typing import List, Tuple
 
 from classes import Raip
 from settings import BASE_DIR, ENCODING
@@ -12,7 +13,7 @@ def get_file_path(filename: str):
     return results_dir / file_name
 
 
-def file_output(results: list[tuple[str, ...]], filename: str) -> None:
+def file_output(results: List[Tuple[str, ...]], filename: str) -> None:
     file_path = get_file_path(filename)
     with open(file_path, 'w', encoding=ENCODING) as f:
         writer = csv.writer(f, dialect='unix')
@@ -20,7 +21,7 @@ def file_output(results: list[tuple[str, ...]], filename: str) -> None:
     logging.info(f'Файл с результатами сохранен: {file_path}')
 
 
-def save_raip(raip: Raip) -> list[tuple[str, ...]]:
+def save_raip(raip: Raip) -> List[Tuple[str, ...]]:
     attrs = ('title', 'number', 'accept_date', 'pub_date', 'href')
     return file_output([tuple(getattr(raip, attr) for attr in attrs)], 'last')
 

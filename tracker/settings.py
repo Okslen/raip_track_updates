@@ -1,6 +1,6 @@
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent
 
 DT_FORMAT = '%Y-%m-%d_%H-%M-%S'
 LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
@@ -9,7 +9,7 @@ ENCODING = 'utf-8'
 DOMAIN = 'https://rk.gov.ru'
 ORDER_TO_FOUND = '13+декабря+2022+года+№+2015-р'
 SEARCH_URL = DOMAIN + '/ru/search?query=' + ORDER_TO_FOUND
-DELAY = 5
+DELAY = 0
 
 # регулярное выражение для поиска даты
 RE_DATE = r'\d{2}\.\d{2}\.\d{4}'

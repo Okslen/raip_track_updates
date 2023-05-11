@@ -10,4 +10,4 @@ class Raip:
     href: str
 
     def __repr__(self) -> str:
-        return f' РАИП {self.number} от {self.accept_date}'
+        return f' РАИП №{self.number} от {self.accept_date}'

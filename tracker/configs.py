@@ -1,7 +1,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 
-from settings import BASE_DIR, DT_FORMAT, ENCODING, LOG_FORMAT
+from tracker.settings import BASE_DIR, DT_FORMAT, ENCODING, LOG_FORMAT
 
 
 def configure_logging() -> None:

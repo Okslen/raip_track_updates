@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup, Tag
 from requests import RequestException, Response
 from requests_html import HTMLSession
 
-from tracker.settings import BASE_DIR, DT_FORMAT, ENCODING
-from tracker.exceptions import ParserFindTagException
+from settings import BASE_DIR, DT_FORMAT, ENCODING
+from exceptions import ParserFindTagException
 
 
 def get_response(url: str, sleep: Optional[int]) -> Union[Response, None]:

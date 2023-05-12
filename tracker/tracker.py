@@ -12,14 +12,12 @@ from utils import find_tag, make_soup
 
 def get_search_result(delay: int) -> List[Tag]:
     soup = make_soup(SEARCH_URL, delay)
-    print(soup.prettify())
     search_results = find_tag(soup, HTMLTag.UL, class_='search-results')
     return search_results.find_all(HTMLTag.A, class_='search-link')
 
 
 def get_raip(link: str, delay: int) -> Raip:
     soup = make_soup(link, delay)
-    print(soup.prettify())
     info = find_tag(soup, HTMLTag.DIV, class_='info')
     number = find_tag(info, HTMLTag.P)
     accept_date = number.find_next_sibling()
@@ -44,7 +42,3 @@ def parse_last_raip(delay: int):
     raip = get_raip(raips[0].get('href'), delay)
     logging.info(f'Найден последний {raip}')
     return raip
-
-
-if __name__ == '__main__':
-    parse_last_raip(0)

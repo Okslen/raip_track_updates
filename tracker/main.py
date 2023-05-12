@@ -10,7 +10,7 @@ from telegram.ext import CommandHandler, Updater
 from configs import configure_logging
 from outputs import get_last_raip, get_users, save_raip, file_output
 from tracker import parse_last_raip
-from settings import BotConstants, DELAY
+from settings import BotConstants, DELAY, SLEEP
 
 
 load_dotenv()
@@ -86,4 +86,4 @@ if __name__ == '__main__':
             for user_id in cache['users_id']:
                 bot.send_message(
                     user_id, f'Что-то изменилось {last_raip.href}')
-        sleep(60)
+        sleep(SLEEP)

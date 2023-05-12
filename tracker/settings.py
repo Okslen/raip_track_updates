@@ -11,7 +11,8 @@ ENCODING = 'utf-8'
 DOMAIN = 'https://rk.gov.ru'
 ORDER_TO_FOUND = '13+декабря+2022+года+№+2015-р'
 SEARCH_URL = DOMAIN + '/ru/search?query=' + ORDER_TO_FOUND
-DELAY = 10
+DELAY = 7
+SLEEP = 10
 
 
 # регулярное выражение для поиска даты

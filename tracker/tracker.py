@@ -1,13 +1,12 @@
 import logging
 import re
-from requests import Response
 from typing import List, Optional
 
 from bs4 import Tag
-
 from classes import Raip
 from configs import configure_logging
 from exceptions import ParserFindTagException
+from requests import Response
 from settings import DOMAIN, RE_DATE, RE_NUMBER, SEARCH_URL, HTMLTag
 from utils import find_tag, get_response, make_soup
 

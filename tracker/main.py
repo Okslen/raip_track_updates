@@ -1,17 +1,16 @@
 import logging
 import os
-import requests
 from time import sleep
 
+import requests
+from configs import configure_logging
 from dotenv import load_dotenv
+from outputs import file_output, get_last_raip, get_users, save_raip
+from settings import DELAY, GREETING, SLEEP, BotConstants
 from telegram import Bot
 from telegram.ext import CommandHandler, Updater
 
-from configs import configure_logging
-from outputs import get_last_raip, get_users, save_raip, file_output
 from tracker import parse_last_raip
-from settings import BotConstants, DELAY, SLEEP
-
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
@@ -55,10 +54,7 @@ def wake_up(update, context):
 
     context.bot.send_message(
         chat_id=chat.id,
-        text=(
-            'Привет, {}. Вот действующая редакция РАИП '.format(name)
-            + cache['last_raip'].href
-        ),
+        text=(GREETING.format(name) + cache['last_raip'].href),
         reply_markup=button
     )
 

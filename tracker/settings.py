@@ -14,6 +14,9 @@ SEARCH_URL = DOMAIN + '/ru/search?query=' + ORDER_TO_FOUND
 DELAY = 8
 SLEEP = 740
 
+GREETING = (
+    'Привет, {}. Если выйдет новая редакция, я сообщу, актуальная версия:')
+
 
 # регулярное выражение для поиска даты
 RE_DATE = r'\d{2}\.\d{2}\.\d{4}'

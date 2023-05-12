@@ -18,6 +18,7 @@ def get_search_result(delay: int) -> List[Tag]:
 
 def get_raip(link: str, delay: int) -> Raip:
     soup = make_soup(link, delay)
+    print(soup.prettify())
     info = find_tag(soup, HTMLTag.DIV, class_='info')
     number = find_tag(info, HTMLTag.P)
     accept_date = number.find_next_sibling()

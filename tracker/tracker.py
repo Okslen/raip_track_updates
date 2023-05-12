@@ -12,6 +12,7 @@ from utils import find_tag, make_soup
 
 def get_search_result(delay: int) -> List[Tag]:
     soup = make_soup(SEARCH_URL, delay)
+    print(soup.prettify())
     search_results = find_tag(soup, HTMLTag.UL, class_='search-results')
     return search_results.find_all(HTMLTag.A, class_='search-link')
 

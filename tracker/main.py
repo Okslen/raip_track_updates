@@ -74,11 +74,10 @@ if __name__ == '__main__':
     cache['users_id'] = get_users()
     logging.info(f'Данные в кеше: {cache}')
     while True:
-        try:
-            last_raip = parse_last_raip(delay=DELAY)
-        except Exception as exception:
-            logging.error(f'Неудачный запрос: {exception}')
-        if last_raip is not None and last_raip != cache.get('last_raip'):
+        last_raip = parse_last_raip(delay=DELAY)
+        if last_raip is None:
+            logging.error(f'Неудачный запрос, попробую секунд через {DELAY}')
+        elif last_raip != cache.get('last_raip'):
             logging.info(f'Изменения: {last_raip}')
             cache['last_raip'] = last_raip
             save_raip(last_raip)

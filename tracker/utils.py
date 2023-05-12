@@ -1,13 +1,11 @@
-import datetime
 import logging
-from pathlib import Path
 from typing import Optional, Union
 
 from bs4 import BeautifulSoup, Tag
 from requests import RequestException, Response
 from requests_html import HTMLSession
 
-from settings import BASE_DIR, DT_FORMAT, ENCODING
+from settings import ENCODING
 from exceptions import ParserFindTagException
 
 
@@ -33,21 +31,6 @@ def find_tag(soup: BeautifulSoup, tag: str, **attrs: str) -> Tag:
     return searched_tag
 
 
-def make_soup(
-    url: str, sleep: Optional[int] = None
-) -> Union[BeautifulSoup, None]:
-    response = get_response(url, sleep)
-    if response is None:
-        return None
+def make_soup(response: Response) -> BeautifulSoup:
     response.encoding = ENCODING
     return BeautifulSoup(response.html.html, 'lxml')
-
-
-def get_filepath() -> Union[str, Path]:
-    filename = f'''raip_{
-        datetime.datetime.now().strftime(DT_FORMAT)
-        }.sqlite'''
-    downloads_dir = Path(BASE_DIR, 'downloads')
-    downloads_dir.mkdir(exist_ok=True)
-    logging.info(f'Информация сохраняется в {filename}')
-    return Path(downloads_dir, filename)

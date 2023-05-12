@@ -15,13 +15,13 @@ def get_response(url: str, sleep: Optional[int]) -> Union[Response, None]:
     session = HTMLSession()
     try:
         response = session.get(url)
-        if sleep:
-            response.html.render(sleep=10)
-        return response
     except RequestException:
         logging.error(f'Возникла ошибка при загрузке {url}',
                       exc_info=True, stack_info=True)
         return None
+    if sleep:
+        response.html.render(sleep=sleep)
+    return response
 
 
 def find_tag(soup: BeautifulSoup, tag: str, **attrs: str) -> Tag:

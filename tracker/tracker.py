@@ -42,3 +42,7 @@ def parse_last_raip(delay: int):
     raip = get_raip(raips[0].get('href'), delay)
     logging.info(f'Найден последний {raip}')
     return raip
+
+
+if __name__ == '__main__':
+    parse_last_raip(0)

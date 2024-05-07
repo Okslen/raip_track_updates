@@ -15,7 +15,7 @@ def get_response(url: str, sleep: Optional[int]) -> Union[Response, None]:
         response = session.get(url)
     except RequestException:
         # logging.error(f'Возникла ошибка при загрузке {url}',
-                      exc_info=True, stack_info=True)
+        #              exc_info=True, stack_info=True)
         return None
     if sleep:
         response.html.render(sleep=sleep)

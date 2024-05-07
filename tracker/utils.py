@@ -26,7 +26,7 @@ def find_tag(soup: BeautifulSoup, tag: str, **attrs: str) -> Tag:
     searched_tag = soup.find(tag, **attrs)
     if searched_tag is None:
         error_message = f'Не найден тег {tag} {None}'
-        logging.error(error_message, stack_info=True)
+        # logging.error(error_message, stack_info=True)
         raise ParserFindTagException(error_message)
     return searched_tag
 

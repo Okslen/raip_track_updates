@@ -9,7 +9,7 @@ LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
 ENCODING = 'utf-8'
 
 DOMAIN = 'https://rk.gov.ru'
-ORDER_TO_FOUND = '05+декабря+20232+года+№+2181-р'
+ORDER_TO_FOUND = '05+декабря+2023+года+№+2181-р'
 SEARCH_URL = DOMAIN + '/ru/search?query=' + ORDER_TO_FOUND
 DELAY = 8
 SLEEP = 740

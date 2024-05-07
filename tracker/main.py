@@ -72,12 +72,14 @@ if __name__ == '__main__':
     while True:
         last_raip = parse_last_raip(delay=DELAY)
         if last_raip is None:
+            sleep_time = DELAY
             logging.error(f'Неудачный запрос, попробую секунд через {DELAY}')
         elif last_raip != cache.get('last_raip'):
+            sleep_time = SLEEP
             logging.info(f'Изменения: {last_raip}')
             cache['last_raip'] = last_raip
             save_raip(last_raip)
             for user_id in cache['users_id']:
                 bot.send_message(
                     user_id, f'Что-то изменилось {last_raip.href}')
-        sleep(SLEEP)
+        sleep(sleep_time)

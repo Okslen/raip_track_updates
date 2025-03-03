@@ -10,7 +10,7 @@ from settings import DELAY, GREETING, SLEEP, BotConstants
 from telegram import Bot
 from telegram.ext import CommandHandler, Updater
 
-from tracker import parse_last_raip
+from parser import search_rk_gov
 
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
@@ -61,16 +61,19 @@ def wake_up(update, context):
 
 if __name__ == '__main__':
     configure_logging()
+
     updater = Updater(token=TOKEN)
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
     updater.dispatcher.add_handler(CommandHandler('get_raip', get_raip))
     updater.start_polling()
+
     cache['last_raip'] = get_last_raip()
     cache['users_id'] = get_users()
     logging.info(f'Данные в кеше: {cache}')
+
     while True:
-        last_raip = parse_last_raip(delay=DELAY)
+        last_raip = search_rk_gov()
         if last_raip is None:
             sleep_time = DELAY
             logging.error(f'Неудачный запрос, попробую секунд через {DELAY}')
@@ -80,6 +83,6 @@ if __name__ == '__main__':
             cache['last_raip'] = last_raip
             save_raip(last_raip)
             for user_id in cache['users_id']:
-                bot.send_message(
+                updater.bot.send_message(
                     user_id, f'Что-то изменилось {last_raip.href}')
         sleep(sleep_time)

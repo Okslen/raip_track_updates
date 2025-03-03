@@ -7,7 +7,7 @@ from classes import Raip
 from configs import configure_logging
 from exceptions import ParserFindTagException
 from requests import Response
-from settings import DOMAIN, RE_DATE, RE_NUMBER, SEARCH_URL, HTMLTag
+from settings import DOMAIN, RE_DATE, RE_NUMBER, HTMLTag
 from utils import find_tag, get_response, make_soup
 
 
@@ -36,7 +36,7 @@ def get_raip(response: Response) -> Raip:
 def parse_last_raip(delay: int) -> Optional[Raip]:
     configure_logging()
     logging.info('Парсер запущен!')
-    response = get_response(SEARCH_URL, delay)
+    response = get_response(DOMAIN, delay)
     if response is None:
         return None
     try:

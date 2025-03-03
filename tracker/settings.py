@@ -8,10 +8,9 @@ DT_FORMAT = '%Y-%m-%d_%H-%M-%S'
 LOG_FORMAT = '"%(asctime)s - [%(levelname)s] - %(message)s"'
 ENCODING = 'utf-8'
 
-DOMAIN = 'https://rk.gov.ru'
-ORDER_TO_FOUND = '05+декабря+2023+года+№+2181-р'
-SEARCH_URL = DOMAIN + '/ru/search?query=' + ORDER_TO_FOUND
-DELAY = 8
+DOMAIN = 'https://rk.gov.ru/search'
+ORDER_TO_FOUND = '27 ноября 2024 года №2197-р'
+DELAY = 5
 SLEEP = 740
 
 GREETING = (

@@ -7,7 +7,7 @@ from configs import configure_logging
 from dotenv import load_dotenv
 from outputs import file_output, get_last_raip, get_users, save_raip
 from settings import DELAY, GREETING, SLEEP, BotConstants
-from telegram import Bot
+from telegram import Bot, BotCommand
 from telegram.ext import CommandHandler, Updater
 
 from parser import search_rk_gov
@@ -63,6 +63,10 @@ if __name__ == '__main__':
     configure_logging()
 
     updater = Updater(token=TOKEN)
+    updater.bot.set_my_commands([
+        BotCommand("start", "Запустить бота"),
+        BotCommand("newcat", "Прислать случайное фото кота"),
+        BotCommand("get_raip", "Получить последний RAIP-документ")])
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
     updater.dispatcher.add_handler(CommandHandler('get_raip', get_raip))

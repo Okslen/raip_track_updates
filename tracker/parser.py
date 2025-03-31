@@ -8,6 +8,7 @@ import logging
 import time
 
 from classes import Raip
+from configs import configure_logging
 from settings import DELAY, DOMAIN, ORDER_TO_FOUND
 
 
@@ -17,10 +18,9 @@ def get_driver(try_time: time):
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    service = Service(ChromeDriverManager().install())
-
     for attempt in range(try_time):  # Две попытки запуска
         try:
+            service = Service(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=options)
             return driver
         except ConnectionError:
@@ -44,7 +44,7 @@ def search_rk_gov():
         search_box = driver.find_element(By.NAME, "text")
         search_box.send_keys(query)
         search_box.send_keys(Keys.RETURN)
-        time.sleep(5)  # Ждем загрузки результатов
+        time.sleep(DELAY)  # Ждем загрузки результатов
         # Парсим результаты поиска
         try:
             first_search_results = driver.find_element(
@@ -58,16 +58,13 @@ def search_rk_gov():
             pub_date = first_search_results.find_element(
                 By.CLASS_NAME, 'SearchResultsItem-Date').text.strip()
         except Exception as e:
-            print(f"Ошибка парсинга элемента: {e}")
-        return Raip(title, number, pub_date, pub_date, href)
+            logging.info(f"Ошибка парсинга элемента: {e}")
+        logging.info(f'На сайте {DOMAIN} найден {title}')
+        return Raip(title, number, pub_date, href)
     finally:
         driver.quit()
 
 
 if __name__ == "__main__":
+    configure_logging()
     raip = search_rk_gov()
-
-    logging.info(raip.title)
-    logging.info(raip.number)
-    logging.info(raip.pub_date)
-    logging.info(raip.href)

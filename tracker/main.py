@@ -6,7 +6,7 @@ import requests
 from configs import configure_logging
 from dotenv import load_dotenv
 from outputs import file_output, get_last_raip, get_users, save_raip
-from settings import DELAY, GREETING, SLEEP, BotConstants
+from settings import DELAY, GREETING, IMAGE_ERROR, SLEEP, BotConstants
 from telegram import Bot, BotCommand
 from telegram.ext import CommandHandler, Updater
 
@@ -33,9 +33,13 @@ def get_new_image():
 
 def new_cat(update, context):
     chat = update.effective_chat
-    context.bot.send_photo(chat.id, get_new_image())
-    logging.info(
-        f'Отправлена фотка пользователю: {update.message.chat.first_name}')
+    image = get_new_image()
+    if image:
+        context.bot.send_photo(chat.id, image)
+        logging.info(
+            f'Отправлена фотка пользователю: {update.message.chat.first_name}')
+    else:
+        context.bot.send_message(chat.id, IMAGE_ERROR)
 
 
 def get_raip(update, context):
@@ -70,7 +74,7 @@ if __name__ == '__main__':
     updater.dispatcher.add_handler(CommandHandler('start', wake_up))
     updater.dispatcher.add_handler(CommandHandler('newcat', new_cat))
     updater.dispatcher.add_handler(CommandHandler('get_raip', get_raip))
-    updater.start_polling()
+    updater.start_polling(timeout=90)
 
     cache['last_raip'] = get_last_raip()
     cache['users_id'] = get_users()
@@ -89,4 +93,6 @@ if __name__ == '__main__':
             for user_id in cache['users_id']:
                 updater.bot.send_message(
                     user_id, f'Что-то изменилось {last_raip.href}')
+        else:
+            sleep_time = SLEEP
         sleep(sleep_time)

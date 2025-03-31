@@ -22,7 +22,7 @@ def file_output(results: List[Tuple[str, ...]], filename: str) -> None:
 
 
 def save_raip(raip: Raip) -> List[Tuple[str, ...]]:
-    attrs = ('title', 'number', 'accept_date', 'pub_date', 'href')
+    attrs = ('title', 'number', 'pub_date', 'href')
     return file_output([tuple(getattr(raip, attr) for attr in attrs)], 'last')
 
 
@@ -36,8 +36,8 @@ def read_file(filename: str):
 
 
 def get_last_raip():
-    attrs = ('title', 'number', 'accept_date', 'pub_date', 'href')
-    raip = Raip(*['']*5)
+    attrs = ('title', 'number', 'pub_date', 'href')
+    raip = Raip(*['']*len(attrs))
     for row in read_file('last'):
         for attr, value in zip(attrs, row):
             setattr(raip, attr, value)

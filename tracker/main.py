@@ -85,7 +85,7 @@ if __name__ == '__main__':
         if last_raip is None:
             sleep_time = DELAY
             logging.error(f'Неудачный запрос, попробую секунд через {DELAY}')
-        elif last_raip != cache.get('last_raip'):
+        elif last_raip != get_last_raip():
             sleep_time = SLEEP
             logging.info(f'Изменения: {last_raip}')
             cache['last_raip'] = last_raip

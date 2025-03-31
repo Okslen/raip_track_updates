@@ -19,28 +19,6 @@ GREETING = (
 IMAGE_ERROR = 'Не удалось скачать картинку'
 
 
-# регулярное выражение для поиска даты
-RE_DATE = r'\d{2}\.\d{2}\.\d{4}'
-# регулярное выражение для поиска номера
-RE_NUMBER = r'\d+\-р'
-
-
-class HTMLTag:
-    A = 'a'
-    DIV = 'div'
-    DL = 'dl'
-    H1 = 'h1'
-    LI = 'li'
-    P = 'p'
-    SECTION = 'section'
-    SPAN = 'span'
-    TABLE = 'table'
-    TBODY = 'tbody'
-    TD = 'td'
-    TR = 'tr'
-    UL = 'ul'
-
-
 class BotConstants:
     BUTTONS = ['/get_raip', '/newcat']
     BUTTON = ReplyKeyboardMarkup([BUTTONS], resize_keyboard=True)

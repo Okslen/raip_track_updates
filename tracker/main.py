@@ -40,6 +40,8 @@ def new_cat(update, context):
             f'Отправлена фотка пользователю: {update.message.chat.first_name}')
     else:
         context.bot.send_message(chat.id, IMAGE_ERROR)
+        logging.info(
+            f'Отправлено сообщение пользователю: {IMAGE_ERROR}')
 
 
 def get_raip(update, context):
@@ -85,7 +87,7 @@ if __name__ == '__main__':
         if last_raip is None:
             sleep_time = DELAY
             logging.error(f'Неудачный запрос, попробую секунд через {DELAY}')
-        elif last_raip != get_last_raip():
+        elif last_raip != cache['last_raip']:
             sleep_time = SLEEP
             logging.info(f'Изменения: {last_raip}')
             cache['last_raip'] = last_raip
